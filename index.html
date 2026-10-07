@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="vi">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Trang chủ</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@500;700;800&display=swap" rel="stylesheet">
+	<style>
+		:root {
+			--mint: #f4fbf6;
+			--mint-deep: #d8f3e2;
+			--ink: #145c38;
+			--green: #1ea35a;
+			--green-deep: #0e8a45;
+			--leaf: #8ed9a8;
+		}
+
+		* { box-sizing: border-box; padding: 0; margin: 0; }
+
+		body {
+			min-height: 100vh;
+			min-height: 100dvh;
+			font-family: "Be Vietnam Pro", sans-serif;
+			color: var(--ink);
+			background:
+				radial-gradient(520px 420px at 50% 18%, rgba(120, 210, 150, 0.5), transparent 70%),
+				radial-gradient(680px 480px at 80% 100%, rgba(190, 235, 200, 0.75), transparent 60%),
+				linear-gradient(180deg, #f7fdf8 0%, var(--mint) 42%, #d7f3e3 100%);
+		}
+
+		.scene {
+			width: 100%;
+			max-width: 100vw;
+			min-height: 100vh;
+			min-height: 100dvh;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			padding: 32px 22px 40px;
+			text-align: center;
+			overflow-x: hidden;
+		}
+
+		.badge {
+			position: relative;
+			width: 200px;
+			height: 200px;
+			margin-bottom: 32px;
+		}
+
+		.badge::before {
+			content: "";
+			position: absolute;
+			inset: 14px;
+			border-radius: 50%;
+			background: rgba(255, 255, 255, 0.55);
+			box-shadow: 0 18px 40px rgba(14, 138, 69, 0.16);
+		}
+
+		.spin {
+			position: absolute;
+			inset: 0;
+			border-radius: 50%;
+			border: 3px solid rgba(142, 217, 168, 0.55);
+			border-top-color: #0e8a45;
+			border-right-color: #1ea35a;
+			animation: spin 0.9s linear infinite;
+		}
+
+		@keyframes spin {
+			to { transform: rotate(360deg); }
+		}
+
+		.shield {
+			position: relative;
+			width: 200px;
+			height: 200px;
+			filter: drop-shadow(0 16px 18px rgba(20, 120, 60, 0.22));
+		}
+
+		.copy {
+			min-height: 48px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 100%;
+			max-width: 100%;
+			min-width: 0;
+		}
+
+		h1 {
+			display: inline-block;
+			max-width: 100%;
+			font-size: 36px;
+			line-height: 1.2;
+			font-weight: 800;
+			letter-spacing: -0.3px;
+			white-space: nowrap;
+			transform-origin: center center;
+			background: linear-gradient(110deg, #145c38 0%, #145c38 42%, #e7ffe9 50%, #145c38 58%, #145c38 100%);
+			background-size: 220% 100%;
+			-webkit-background-clip: text;
+			background-clip: text;
+			-webkit-text-fill-color: transparent;
+			animation: text-shimmer 2.6s linear infinite;
+		}
+
+		@keyframes text-shimmer {
+			0% { background-position: 120% 0; }
+			100% { background-position: -120% 0; }
+		}
+
+		.status {
+			color: var(--ink);
+			font-size: clamp(22px, 6vw, 34px);
+			line-height: 1.2;
+			font-weight: 800;
+			letter-spacing: -0.3px;
+			white-space: nowrap;
+		}
+
+		.cta {
+			margin-top: 36px;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			width: min(82vw, 360px);
+			height: 64px;
+			border-radius: 999px;
+			text-decoration: none;
+			color: #f7fff9;
+			font-weight: 800;
+			font-size: 18px;
+			letter-spacing: 0.6px;
+			text-transform: uppercase;
+			background: linear-gradient(100deg, var(--green-deep) 0%, var(--green) 46%, var(--leaf) 100%);
+			box-shadow:
+				0 14px 28px rgba(14, 138, 69, 0.28),
+				inset 0 1px 0 rgba(255, 255, 255, 0.45);
+			transition: transform 0.2s ease, filter 0.2s ease;
+		}
+
+		.cta:hover { filter: brightness(1.04); transform: translateY(-1px); }
+		.cta:active { transform: translateY(1px); }
+
+		.cta.is-wait {
+			pointer-events: none;
+			filter: saturate(0.85);
+		}
+
+		.is-hidden { display: none; }
+
+		.spin.is-done {
+			animation: none;
+			opacity: 0;
+		}
+
+		@media (max-width: 540px) {
+			.badge, .shield { width: 176px; height: 176px; }
+			.scene { padding: 24px 12px 32px; }
+		}
+	</style>
+</head>
+<body>
+	<main class="scene">
+		<div class="badge" aria-hidden="true">
+			<div class="spin"></div>
+			<svg class="shield" viewBox="0 0 168 168" fill="none">
+				<circle cx="84" cy="84" r="70" fill="#f7fdf8"/>
+				<circle cx="84" cy="84" r="62" fill="url(#plate)"/>
+				<path d="M84 38l34 13v28c0 22-14 38-34 46-20-8-34-24-34-46V51l34-13z" fill="url(#shieldFill)"/>
+				<path d="M84 48l24 9.2V78c0 15.4-9.8 26.6-24 32.2C69.8 104.6 60 93.4 60 78V57.2L84 48z" fill="#f4fbf6" fill-opacity=".2"/>
+				<path d="M72 84.5l8.2 8.2L98 74" stroke="#f7fff9" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+				<defs>
+					<linearGradient id="plate" x1="40" y1="28" x2="132" y2="146" gradientUnits="userSpaceOnUse">
+						<stop stop-color="#E5F8EC"/>
+						<stop offset="1" stop-color="#C6EBD4"/>
+					</linearGradient>
+					<linearGradient id="shieldFill" x1="58" y1="38" x2="112" y2="128" gradientUnits="userSpaceOnUse">
+						<stop stop-color="#B7E8C8"/>
+						<stop offset=".48" stop-color="#1EA35A"/>
+						<stop offset="1" stop-color="#0E8A45"/>
+					</linearGradient>
+				</defs>
+			</svg>
+		</div>
+
+		<div class="copy">
+			<h1 id="title" class="is-hidden">Trang an toàn, truy cập yên tâm.</h1>
+			<p id="status" class="status">Đang kiểm tra...</p>
+		</div>
+
+		<a id="go" class="cta is-wait" href="#">
+			<span id="btn-text">Sắp hoàn tất 2</span>
+		</a>
+	</main>
+
+	<script>
+		const BRAND = "YG88";
+		const LINKS = [
+			"https://qnrgos.xyz",
+			"https://bf3184.xyz",
+			"https://hqw2xw.xyz",
+			"https://1z553b.xyz",
+			"https://37undh.xyz",
+			"https://uilgqd.xyz"
+		];
+		const CHECK_TIMEOUT_MS = 2200;
+		const FALLBACK_MS = 2800;
+
+		const btnText = document.getElementById("btn-text");
+		const status = document.getElementById("status");
+		const title = document.getElementById("title");
+		const spin = document.querySelector(".spin");
+		const go = document.getElementById("go");
+		let count = 2;
+
+		const timer = setInterval(() => {
+			count -= 1;
+			if (count > 0) {
+				btnText.textContent = "Sắp hoàn tất " + count;
+				return;
+			}
+			clearInterval(timer);
+			btnText.textContent = "Truy cập " + BRAND;
+			title.classList.remove("is-hidden");
+			fitTitle();
+			status.classList.add("is-hidden");
+			spin.classList.add("is-done");
+			go.classList.remove("is-wait");
+		}, 500);
+
+		function fitTitle() {
+			title.style.transform = "none";
+			const max = title.parentElement.clientWidth - 4;
+			const width = title.scrollWidth;
+			if (width > max && width > 0) {
+				title.style.transform = "scale(" + (max / width) + ")";
+			}
+		}
+
+		window.addEventListener("resize", () => {
+			if (!title.classList.contains("is-hidden")) fitTitle();
+		});
+
+		function shuffle(list) {
+			const arr = list.slice();
+			for (let i = arr.length - 1; i > 0; i--) {
+				const j = Math.floor(Math.random() * (i + 1));
+				const tmp = arr[i];
+				arr[i] = arr[j];
+				arr[j] = tmp;
+			}
+			return arr;
+		}
+
+		function testLink(url, timeout) {
+			return new Promise((resolve) => {
+				let finished = false;
+				const controller = new AbortController();
+				const timerId = setTimeout(() => {
+					if (finished) return;
+					finished = true;
+					controller.abort();
+					resolve({ url: url, ok: false });
+				}, timeout);
+
+				const checkUrl = url.replace(/\/$/, "") + "/?__check=" + Date.now();
+				fetch(checkUrl, {
+					method: "GET",
+					mode: "no-cors",
+					cache: "no-store",
+					signal: controller.signal
+				}).then(() => {
+					if (finished) return;
+					finished = true;
+					clearTimeout(timerId);
+					resolve({ url: url, ok: true });
+				}).catch(() => {
+					if (finished) return;
+					finished = true;
+					clearTimeout(timerId);
+					resolve({ url: url, ok: false });
+				});
+			});
+		}
+
+		go.addEventListener("click", (event) => {
+			event.preventDefault();
+			if (go.classList.contains("is-wait") || go.dataset.busy === "1") return;
+
+			const list = shuffle(LINKS).filter(Boolean);
+			if (!list.length) {
+				status.textContent = "Chưa có link.";
+				status.classList.remove("is-hidden");
+				return;
+			}
+
+			go.dataset.busy = "1";
+			go.classList.add("is-wait");
+			btnText.textContent = "Đang mở...";
+			status.textContent = "Đang chọn đường dẫn...";
+			status.classList.remove("is-hidden");
+			title.classList.add("is-hidden");
+
+			let redirected = false;
+			list.forEach((url) => {
+				testLink(url, CHECK_TIMEOUT_MS).then((result) => {
+					if (redirected || !result.ok) return;
+					redirected = true;
+					window.location.replace(result.url);
+				});
+			});
+
+			setTimeout(() => {
+				if (redirected) return;
+				redirected = true;
+				window.location.replace(list[list.length - 1]);
+			}, FALLBACK_MS);
+		});
+	</script>
+</body>
+</html>
